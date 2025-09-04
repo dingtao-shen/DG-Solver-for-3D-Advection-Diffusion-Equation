@@ -1,0 +1,20 @@
+SPATIAL_DIM: 3
+POLYDEG: 3
+QUAD_MODE: 1
+
+MODEL: ADVECTION
+
+TMAX: 1000000
+TOL: 1.0e-5
+
+MESH_TYPE: 0
+MESH_FILE: "./config/mesh/cuboid_sparse.msh"
+N_BOUNDARY: 6
+# 1: thermalizing, 2: diffuse, 3: specular, 4: periodic
+BOUNDARY_COND:
+  13: [1, 0.5]
+  14: [1, -0.5]
+  15: [1, -0.5]
+  16: [1, -0.5]
+  17: [1, -0.5]
+  18: [1, -0.5]

@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/libDGSolver.a CMakeFiles/DGSolver.dir/DGSolver_Advection.cpp.o
+/usr/bin/ranlib ../../lib/libDGSolver.a

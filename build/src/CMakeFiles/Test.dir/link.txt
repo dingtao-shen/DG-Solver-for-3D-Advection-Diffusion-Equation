@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -O3 -march=native -DNDEBUG CMakeFiles/Test.dir/test/Test.cpp.o -o ../bin/Test  ../lib/libUtility.a ../lib/libPolynomial.a ../lib/libDGSolver.a -lyaml-cpp -lstdc++fs ../lib/libUtility.a /usr/lib/gcc/x86_64-linux-gnu/13/libgomp.so /usr/lib/x86_64-linux-gnu/libpthread.a 

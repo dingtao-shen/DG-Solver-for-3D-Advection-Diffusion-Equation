@@ -1,0 +1,15 @@
+/home/bryan/projects/DG-Solver-for-3D-Advection-Diffusion-Equation/build/CMakeFiles/edit_cache.dir
+/home/bryan/projects/DG-Solver-for-3D-Advection-Diffusion-Equation/build/CMakeFiles/rebuild_cache.dir
+/home/bryan/projects/DG-Solver-for-3D-Advection-Diffusion-Equation/build/src/CMakeFiles/Test.dir
+/home/bryan/projects/DG-Solver-for-3D-Advection-Diffusion-Equation/build/src/CMakeFiles/BasisFunctionsTests.dir
+/home/bryan/projects/DG-Solver-for-3D-Advection-Diffusion-Equation/build/src/CMakeFiles/edit_cache.dir
+/home/bryan/projects/DG-Solver-for-3D-Advection-Diffusion-Equation/build/src/CMakeFiles/rebuild_cache.dir
+/home/bryan/projects/DG-Solver-for-3D-Advection-Diffusion-Equation/build/src/Utility/CMakeFiles/Utility.dir
+/home/bryan/projects/DG-Solver-for-3D-Advection-Diffusion-Equation/build/src/Utility/CMakeFiles/edit_cache.dir
+/home/bryan/projects/DG-Solver-for-3D-Advection-Diffusion-Equation/build/src/Utility/CMakeFiles/rebuild_cache.dir
+/home/bryan/projects/DG-Solver-for-3D-Advection-Diffusion-Equation/build/src/Polynomial/CMakeFiles/Polynomial.dir
+/home/bryan/projects/DG-Solver-for-3D-Advection-Diffusion-Equation/build/src/Polynomial/CMakeFiles/edit_cache.dir
+/home/bryan/projects/DG-Solver-for-3D-Advection-Diffusion-Equation/build/src/Polynomial/CMakeFiles/rebuild_cache.dir
+/home/bryan/projects/DG-Solver-for-3D-Advection-Diffusion-Equation/build/src/DGSolver/CMakeFiles/DGSolver.dir
+/home/bryan/projects/DG-Solver-for-3D-Advection-Diffusion-Equation/build/src/DGSolver/CMakeFiles/edit_cache.dir
+/home/bryan/projects/DG-Solver-for-3D-Advection-Diffusion-Equation/build/src/DGSolver/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,30 @@
+# Integral Matrix Metadata
+# Generated on: 1756968042255320126
+# Mode: 1
+
+IntMat:
+  Dimensions: 197 x 20
+  Size: 3940 elements
+
+MassMat:
+  Number of elements: 197
+  Matrix dimensions: 20 x 20
+  Total size: 78800 elements
+
+StiffMat:
+  Number of elements: 197
+  Dimensions per element: 3
+  Matrix dimensions: 20 x 20
+  Total size: 236400 elements
+
+MassFaceMat:
+  Number of elements: 197
+  Faces per element: 4
+  Matrix dimensions: 20 x 20
+  Total size: 315200 elements
+
+FluxMat:
+  Number of elements: 197
+  Faces per element: 4
+  Matrix dimensions: 20 x 20
+  Total size: 315200 elements

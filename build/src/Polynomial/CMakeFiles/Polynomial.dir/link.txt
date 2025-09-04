@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/libPolynomial.a CMakeFiles/Polynomial.dir/polynomial.cpp.o
+/usr/bin/ranlib ../../lib/libPolynomial.a
