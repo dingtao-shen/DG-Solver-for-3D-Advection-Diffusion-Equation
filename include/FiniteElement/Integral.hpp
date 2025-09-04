@@ -556,9 +556,6 @@ namespace FiniteElement{
                         }
                     }
                     else if(CC.BOUNDARY_COND[BCTAG].first == 1){
-                        // for(int i = 0; i < DoF; i++){
-                        //     FluxMat[k][l].col(i) = IntFaceMat[k][l];
-                        // }
                         Eigen::MatrixXd FaceVertices = Eigen::MatrixXd::Zero(3, 3);
                         for(int m = 0; m < 3; m++){
                             FaceVertices.col(m) = mesh.getCells()[k]->getFaces()[l]->getVertices()[m]->getCoordinates();

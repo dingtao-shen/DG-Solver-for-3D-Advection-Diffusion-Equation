@@ -76,12 +76,11 @@ int main(int argc, char* argv[]){
     }
 
     cout << "********** ********** **** Iteration **** ********** **********" << endl;
-    while(step <= 1){
+    while(step <= 100){
         SolutionPrev = solver.getSolution();
-        solver.solve(Faces, Cells, comp_odr, MassMat, MassFaceMat, FluxMat);
         t += dt;
         Int.updateFlux(mesh, dt);
-        // res = PM.MacroQuantUpdate(DSA, IntMat, solver.getSolution());
+        solver.solve(Faces, Cells, comp_odr, MassMat, MassFaceMat, FluxMat);
         sol_norm = 0.0;
         for(int i = 0; i < CC.N_MESH_CELL; i++){
             sol_norm += solver.getSolution()[i].norm();
@@ -94,15 +93,12 @@ int main(int argc, char* argv[]){
         step++;
     }
 
-    // PM.save3D(EDF, Faces, Cells, DSA, "output/3D/result");
-    // PM.save2D_slice(EDF, Faces, Cells, DSA, "output/3D/result");
-
     end = clock();
     double times;
     times = (double)(end - start)/CLOCKS_PER_SEC;
     cout << "Time: " << times << endl;
 
-    solver.save(Cells, "output/3D/result", 0, 0.5);
+    solver.save(Cells, "output/3D/result/Advection_solution_t01_x05.txt", 0, 0.5);
     // Close the step_res file
     step_res_file.close();
 

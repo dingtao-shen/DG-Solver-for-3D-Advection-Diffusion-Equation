@@ -24,7 +24,7 @@ namespace DGSolver {
                                             alignedVec<std::shared_ptr<Element::FaceDim<3, 3>>>& Faces,
                                             std::vector<int>& comp_odr)
     {
-        dt = 0.01;
+        dt = 0.001;
         Vi = Eigen::VectorXd::Zero(3);
         Vi << 1.0, 1.0, 1.0;
 
@@ -217,7 +217,7 @@ namespace DGSolver {
             }
         }
 
-        ofstream write_output(results_dir + "/Advection_solution.txt");
+        ofstream write_output(results_dir);
         assert(write_output.is_open());
         write_output.setf(ios::fixed);
         write_output.precision(16);
