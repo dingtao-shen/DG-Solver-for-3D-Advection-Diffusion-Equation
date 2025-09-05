@@ -22,11 +22,11 @@ namespace FiniteElement{
             alignedVec<Eigen::MatrixXd> MassMat;
             alignedVec<alignedVec<Eigen::VectorXd>> IntFaceMat;
             alignedVec<alignedVec<Eigen::MatrixXd>> StiffMat;
-            alignedVec<alignedVec<Eigen::MatrixXd>> DivDivMat;
+            // alignedVec<alignedVec<Eigen::MatrixXd>> DivDivMat;
             alignedVec<alignedVec<Eigen::MatrixXd>> MassFaceMat;
-            alignedVec<alignedVec<alignedVec<Eigen::MatrixXd>>> StiffFaceMat;
+            // alignedVec<alignedVec<alignedVec<Eigen::MatrixXd>>> StiffFaceMat;
             alignedVec<alignedVec<Eigen::MatrixXd>> FluxMat;
-            alignedVec<alignedVec<alignedVec<Eigen::MatrixXd>>> StiffFluxMat;
+            // alignedVec<alignedVec<alignedVec<Eigen::MatrixXd>>> StiffFluxMat;
         public:
             explicit Integral(SpatialMesh::SpatialMeshDim<Dim> mesh, int mode); // 0: exact integral; 1: numerical quadrature
             virtual ~Integral(){};
@@ -37,11 +37,11 @@ namespace FiniteElement{
             alignedVec<alignedVec<Eigen::VectorXd>> getIntFaceMat() const {return IntFaceMat;}
             alignedVec<Eigen::MatrixXd> getMassMat() const {return MassMat;}
             alignedVec<alignedVec<Eigen::MatrixXd>> getStiffMat() const {return StiffMat;}
-            alignedVec<alignedVec<Eigen::MatrixXd>> getDivDivMat() const {return DivDivMat;}
+            // alignedVec<alignedVec<Eigen::MatrixXd>> getDivDivMat() const {return DivDivMat;}
             alignedVec<alignedVec<Eigen::MatrixXd>> getMassFaceMat() const {return MassFaceMat;}
-            alignedVec<alignedVec<alignedVec<Eigen::MatrixXd>>> getStiffFaceMat() const {return StiffFaceMat;}
+            // alignedVec<alignedVec<alignedVec<Eigen::MatrixXd>>> getStiffFaceMat() const {return StiffFaceMat;}
             alignedVec<alignedVec<Eigen::MatrixXd>> getFluxMat() const {return FluxMat;}
-            alignedVec<alignedVec<alignedVec<Eigen::MatrixXd>>> getStiffFluxMat() const {return StiffFluxMat;}
+            // alignedVec<alignedVec<alignedVec<Eigen::MatrixXd>>> getStiffFluxMat() const {return StiffFluxMat;}
             void save(std::string results_dir);
     };
 
@@ -219,40 +219,40 @@ namespace FiniteElement{
         std::cout << "  >>> StiffMat computed." << std::endl;
 
         /* Compute the div-div matrix */
-        DivDivMat.resize(Nt);
-        for(int i = 0; i < Nt; i++){
-            DivDivMat[i].resize(Dim);
-            for(int j = 0; j < Dim; j++){
-                DivDivMat[i][j].resize(DoF, DoF);
-                DivDivMat[i][j].setZero();
-            }
-        }
-        if(mode == 0){
-            throw std::runtime_error("Exact integral is not supported for div-div matrix");
-        }
-        else if(mode == 1){
-            if(Dim == 2){
-                throw std::runtime_error("Numerical quadrature is not supported for 2D mesh");
-            }
-            FiniteElement::Quad3D Quad3D(46);
-            for(int k = 0; k < Nt; k++){
-                Eigen::MatrixXd Vertices = Eigen::MatrixXd::Zero(3, 4);
-                for(int i = 0; i < 4; i++){
-                    Vertices.col(i) = mesh.getCells()[k]->getVertices()[i]->getCoordinates();
-                }
-                std::vector<Polynomial::Polynomial> LB = LagrangeBasis(3, CC.POLYDEG, Vertices);
-                Eigen::MatrixXd QuadCords = Quad3D.Cords(Vertices);
-                #pragma omp parallel for
-                for(int i = 0; i < DoF; i++){
-                    for(int j = 0; j < DoF; j++){
-                        for(int l = 0; l < Dim; l++){
-                            Polynomial::Polynomial product = LB[i].derivative(l) * LB[j].derivative(l);
-                            DivDivMat[k][l](i, j) = Quad3D.Int(product.evaluateBatch(QuadCords)) * alphaVolume * Volumes[k];
-                        }
-                    }
-                }
-            }
-        }
+        // DivDivMat.resize(Nt);
+        // for(int i = 0; i < Nt; i++){
+        //     DivDivMat[i].resize(Dim);
+        //     for(int j = 0; j < Dim; j++){
+        //         DivDivMat[i][j].resize(DoF, DoF);
+        //         DivDivMat[i][j].setZero();
+        //     }
+        // }
+        // if(mode == 0){
+        //     throw std::runtime_error("Exact integral is not supported for div-div matrix");
+        // }
+        // else if(mode == 1){
+        //     if(Dim == 2){
+        //         throw std::runtime_error("Numerical quadrature is not supported for 2D mesh");
+        //     }
+        //     FiniteElement::Quad3D Quad3D(46);
+        //     for(int k = 0; k < Nt; k++){
+        //         Eigen::MatrixXd Vertices = Eigen::MatrixXd::Zero(3, 4);
+        //         for(int i = 0; i < 4; i++){
+        //             Vertices.col(i) = mesh.getCells()[k]->getVertices()[i]->getCoordinates();
+        //         }
+        //         std::vector<Polynomial::Polynomial> LB = LagrangeBasis(3, CC.POLYDEG, Vertices);
+        //         Eigen::MatrixXd QuadCords = Quad3D.Cords(Vertices);
+        //         #pragma omp parallel for
+        //         for(int i = 0; i < DoF; i++){
+        //             for(int j = 0; j < DoF; j++){
+        //                 for(int l = 0; l < Dim; l++){
+        //                     Polynomial::Polynomial product = LB[i].derivative(l) * LB[j].derivative(l);
+        //                     DivDivMat[k][l](i, j) = Quad3D.Int(product.evaluateBatch(QuadCords)) * alphaVolume * Volumes[k];
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
         /* Compute the integration matrix on the faces */
         IntFaceMat.resize(Nt);
@@ -432,51 +432,50 @@ namespace FiniteElement{
         std::cout << "  >>> MassFaceMat computed." << std::endl;
 
         /* Compute the stiffness matrix on the faces */
-        StiffFaceMat.resize(Nt);
-        for(int i = 0; i < Nt; i++){
-            StiffFaceMat[i].resize(Dim+1);
-            for(int j = 0; j < Dim+1; j++){
-                StiffFaceMat[i][j].resize(Dim);
-                for(int k = 0; k < Dim; k++){
-                    StiffFaceMat[i][j][k].resize(DoF, DoF);
-                    StiffFaceMat[i][j][k].setZero();
-                }
-            }
-        }
-        if(mode == 0){
-            throw std::runtime_error("Exact integral is not supported for stiffness matrix on the faces");
-        }
-        else if(mode == 1){
-            if(Dim == 2){
-                throw std::runtime_error("Numerical quadrature is not supported for 2D mesh");
-            }
-            FiniteElement::Quad2D Quad2D(16);
-            for(int k = 0; k < Nt; k++){
-                Eigen::MatrixXd Vertices = Eigen::MatrixXd::Zero(3, 4);
-                for(int i = 0; i < 4; i++){
-                    Vertices.col(i) = mesh.getCells()[k]->getVertices()[i]->getCoordinates();
-                }
-                std::vector<Polynomial::Polynomial> LB = LagrangeBasis(3, CC.POLYDEG, Vertices);
-                for(int l = 0; l < 4; l++){
-                    Eigen::MatrixXd FaceVertices = Eigen::MatrixXd::Zero(3, 3);
-                    for(int m = 0; m < 3; m++){
-                        FaceVertices.col(m) = mesh.getCells()[k]->getFaces()[l]->getVertices()[m]->getCoordinates();
-                    }
-                    Eigen::MatrixXd QuadCords = Quad2D.Cords(FaceVertices);
-                    #pragma omp parallel for
-                    for(int i = 0; i < DoF; i++){
-                        for(int j = 0; j < DoF; j++){
-                            for(int d = 0; d < Dim; d++){
-                                Polynomial::Polynomial product = LB[i].derivative(d) * LB[j];
-                                StiffFaceMat[k][l][d](i, j) = Quad2D.Int(product.evaluateBatch(QuadCords)) * alphaFace * mesh.getCells()[k]->getFaces()[l]->getMeasure();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        std::cout << "  >>> StiffFaceMat computed." << std::endl;
+        // StiffFaceMat.resize(Nt);
+        // for(int i = 0; i < Nt; i++){
+        //     StiffFaceMat[i].resize(Dim+1);
+        //     for(int j = 0; j < Dim+1; j++){
+        //         StiffFaceMat[i][j].resize(Dim);
+        //         for(int k = 0; k < Dim; k++){
+        //             StiffFaceMat[i][j][k].resize(DoF, DoF);
+        //             StiffFaceMat[i][j][k].setZero();
+        //         }
+        //     }
+        // }
+        // if(mode == 0){
+        //     throw std::runtime_error("Exact integral is not supported for stiffness matrix on the faces");
+        // }
+        // else if(mode == 1){
+        //     if(Dim == 2){
+        //         throw std::runtime_error("Numerical quadrature is not supported for 2D mesh");
+        //     }
+        //     FiniteElement::Quad2D Quad2D(16);
+        //     for(int k = 0; k < Nt; k++){
+        //         Eigen::MatrixXd Vertices = Eigen::MatrixXd::Zero(3, 4);
+        //         for(int i = 0; i < 4; i++){
+        //             Vertices.col(i) = mesh.getCells()[k]->getVertices()[i]->getCoordinates();
+        //         }
+        //         std::vector<Polynomial::Polynomial> LB = LagrangeBasis(3, CC.POLYDEG, Vertices);
+        //         for(int l = 0; l < 4; l++){
+        //             Eigen::MatrixXd FaceVertices = Eigen::MatrixXd::Zero(3, 3);
+        //             for(int m = 0; m < 3; m++){
+        //                 FaceVertices.col(m) = mesh.getCells()[k]->getFaces()[l]->getVertices()[m]->getCoordinates();
+        //             }
+        //             Eigen::MatrixXd QuadCords = Quad2D.Cords(FaceVertices);
+        //             #pragma omp parallel for
+        //             for(int i = 0; i < DoF; i++){
+        //                 for(int j = 0; j < DoF; j++){
+        //                     for(int d = 0; d < Dim; d++){
+        //                         Polynomial::Polynomial product = LB[i].derivative(d) * LB[j];
+        //                         StiffFaceMat[k][l][d](i, j) = Quad2D.Int(product.evaluateBatch(QuadCords)) * alphaFace * mesh.getCells()[k]->getFaces()[l]->getMeasure();
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        // std::cout << "  >>> StiffFaceMat computed." << std::endl;
 
         /* Compute the product of basis functions from both sides of the faces */
         FluxMat.resize(Nt);
@@ -576,78 +575,77 @@ namespace FiniteElement{
 
         std::cout << "  >>> FluxMat computed." << std::endl;
 
-        StiffFluxMat.resize(Nt);
-        for(int i = 0; i < Nt; i++){
-            StiffFluxMat[i].resize(Dim+1);
-            for(int j = 0; j < Dim+1; j++){
-                StiffFluxMat[i][j].resize(Dim);
-                for(int k = 0; k < Dim; k++){
-                    StiffFluxMat[i][j][k].resize(DoF, DoF);
-                    StiffFluxMat[i][j][k].setZero();
-                }
-            }
-        }
-        if(mode == 0){
-            throw std::runtime_error("Exact integral is not supported for stiffness matrix on the faces");
-        }
-        else if(mode == 1){
-            if(Dim == 2){
-                throw std::runtime_error("Numerical quadrature is not supported for 2D mesh");
-            }
-            FiniteElement::Quad2D Quad2D(16);
-            for(int k = 0; k < Nt; k++){
-                Eigen::MatrixXd curVertices = Eigen::MatrixXd::Zero(3, 4);
-                for(int i = 0; i < 4; i++){
-                    curVertices.col(i) = mesh.getCells()[k]->getVertices()[i]->getCoordinates();
-                }
-                std::vector<Polynomial::Polynomial> curLB = LagrangeBasis(3, CC.POLYDEG, curVertices);
-                for(int l = 0; l < 4; l++){
-                    int FCID = mesh.getCells()[k]->getFaces()[l]->getIndex();
-                    int BCTAG = mesh.getCells()[k]->getFaces()[l]->getBoundaryFlag();
-                    if(BCTAG == 0){
-                        int NBR = (mesh.getFaces()[FCID]->getAdjacentCells()[0] == k) ? mesh.getFaces()[FCID]->getAdjacentCells()[1] : mesh.getFaces()[FCID]->getAdjacentCells()[0];
-                        Eigen::MatrixXd adjVertices = Eigen::MatrixXd::Zero(3, 4);
-                        for(int m = 0; m < 4; m++){
-                            adjVertices.col(m) = mesh.getCells()[NBR]->getVertices()[m]->getCoordinates();
-                        }
-                        std::vector<Polynomial::Polynomial> adjLB = LagrangeBasis(3, CC.POLYDEG, adjVertices);
-                        Eigen::MatrixXd FaceVertices = Eigen::MatrixXd::Zero(3, 3);
-                        for(int m = 0; m < 3; m++){
-                            FaceVertices.col(m) = mesh.getCells()[k]->getFaces()[l]->getVertices()[m]->getCoordinates();
-                        }
-                        Eigen::MatrixXd QuadCords = Quad2D.Cords(FaceVertices);
-                        #pragma omp parallel for
-                        for(int i = 0; i < DoF; i++){
-                            for(int j = 0; j < DoF; j++){
-                                for(int d = 0; d < Dim; d++){
-                                    Polynomial::Polynomial product = curLB[i].derivative(d) * adjLB[j];
-                                    StiffFluxMat[k][l][d](i, j) = Quad2D.Int(product.evaluateBatch(QuadCords)) * alphaFace * mesh.getCells()[k]->getFaces()[l]->getMeasure();
-                                }
-                            }
-                        }
-                    }
-                    else if(CC.BOUNDARY_COND[BCTAG].first == 1){
-                        Eigen::MatrixXd FaceVertices = Eigen::MatrixXd::Zero(3, 3);
-                        for(int m = 0; m < 3; m++){
-                            FaceVertices.col(m) = mesh.getCells()[k]->getFaces()[l]->getVertices()[m]->getCoordinates();
-                        }
-                        Eigen::MatrixXd QuadCords = Quad2D.Cords(FaceVertices);
-                        #pragma omp parallel for
-                        for(int i = 0; i < DoF; i++){
-                            for(int d = 0; d < Dim; d++){
-                                Eigen::VectorXd f = curLB[i].derivative(d).evaluateBatch(QuadCords);
-                                f = f.array() * BCIC::EvalF(QuadCords, 0, BCTAG, 0).array();
-                                for(int j = 0; j < DoF; j++){
-                                    StiffFluxMat[k][l][d](i, j) = Quad2D.Int(f) * alphaFace * mesh.getCells()[k]->getFaces()[l]->getMeasure();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        std::cout << "  >>> StiffFluxMat computed." << std::endl;
+        // StiffFluxMat.resize(Nt);
+        // for(int i = 0; i < Nt; i++){
+        //     StiffFluxMat[i].resize(Dim+1);
+        //     for(int j = 0; j < Dim+1; j++){
+        //         StiffFluxMat[i][j].resize(Dim);
+        //         for(int k = 0; k < Dim; k++){
+        //             StiffFluxMat[i][j][k].resize(DoF, DoF);
+        //             StiffFluxMat[i][j][k].setZero();
+        //         }
+        //     }
+        // }
+        // if(mode == 0){
+        //     throw std::runtime_error("Exact integral is not supported for stiffness matrix on the faces");
+        // }
+        // else if(mode == 1){
+        //     if(Dim == 2){
+        //         throw std::runtime_error("Numerical quadrature is not supported for 2D mesh");
+        //     }
+        //     FiniteElement::Quad2D Quad2D(16);
+        //     for(int k = 0; k < Nt; k++){
+        //         Eigen::MatrixXd curVertices = Eigen::MatrixXd::Zero(3, 4);
+        //         for(int i = 0; i < 4; i++){
+        //             curVertices.col(i) = mesh.getCells()[k]->getVertices()[i]->getCoordinates();
+        //         }
+        //         std::vector<Polynomial::Polynomial> curLB = LagrangeBasis(3, CC.POLYDEG, curVertices);
+        //         for(int l = 0; l < 4; l++){
+        //             int FCID = mesh.getCells()[k]->getFaces()[l]->getIndex();
+        //             int BCTAG = mesh.getCells()[k]->getFaces()[l]->getBoundaryFlag();
+        //             if(BCTAG == 0){
+        //                 int NBR = (mesh.getFaces()[FCID]->getAdjacentCells()[0] == k) ? mesh.getFaces()[FCID]->getAdjacentCells()[1] : mesh.getFaces()[FCID]->getAdjacentCells()[0];
+        //                 Eigen::MatrixXd adjVertices = Eigen::MatrixXd::Zero(3, 4);
+        //                 for(int m = 0; m < 4; m++){
+        //                     adjVertices.col(m) = mesh.getCells()[NBR]->getVertices()[m]->getCoordinates();
+        //                 }
+        //                 std::vector<Polynomial::Polynomial> adjLB = LagrangeBasis(3, CC.POLYDEG, adjVertices);
+        //                 Eigen::MatrixXd FaceVertices = Eigen::MatrixXd::Zero(3, 3);
+        //                 for(int m = 0; m < 3; m++){
+        //                     FaceVertices.col(m) = mesh.getCells()[k]->getFaces()[l]->getVertices()[m]->getCoordinates();
+        //                 }
+        //                 Eigen::MatrixXd QuadCords = Quad2D.Cords(FaceVertices);
+        //                 #pragma omp parallel for
+        //                 for(int i = 0; i < DoF; i++){
+        //                     for(int j = 0; j < DoF; j++){
+        //                         for(int d = 0; d < Dim; d++){
+        //                             Polynomial::Polynomial product = curLB[i].derivative(d) * adjLB[j];
+        //                             StiffFluxMat[k][l][d](i, j) = Quad2D.Int(product.evaluateBatch(QuadCords)) * alphaFace * mesh.getCells()[k]->getFaces()[l]->getMeasure();
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //             else if(CC.BOUNDARY_COND[BCTAG].first == 1){
+        //                 Eigen::MatrixXd FaceVertices = Eigen::MatrixXd::Zero(3, 3);
+        //                 for(int m = 0; m < 3; m++){
+        //                     FaceVertices.col(m) = mesh.getCells()[k]->getFaces()[l]->getVertices()[m]->getCoordinates();
+        //                 }
+        //                 Eigen::MatrixXd QuadCords = Quad2D.Cords(FaceVertices);
+        //                 #pragma omp parallel for
+        //                 for(int i = 0; i < DoF; i++){
+        //                     for(int d = 0; d < Dim; d++){
+        //                         Eigen::VectorXd f = curLB[i].derivative(d).evaluateBatch(QuadCords);
+        //                         f = f.array() * BCIC::EvalF(QuadCords, 0, BCTAG, 0).array();
+        //                         for(int j = 0; j < DoF; j++){
+        //                             StiffFluxMat[k][l][d](i, j) = Quad2D.Int(f) * alphaFace * mesh.getCells()[k]->getFaces()[l]->getMeasure();
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        // std::cout << "  >>> StiffFluxMat computed." << std::endl;
 
         std::cout << ">>> FEM elementwise operations completed." << std::endl;
     }
@@ -661,9 +659,9 @@ namespace FiniteElement{
                     continue;
                 }
                 else if(CC.BOUNDARY_COND[BCTAG].first == 1){
-                    for(int d = 0; d < Dim; d++){
-                        StiffFluxMat[i][j][d] = StiffFluxMat[i][j][d].array() * exp(dt);
-                    }
+                    // for(int d = 0; d < Dim; d++){
+                    //     StiffFluxMat[i][j][d] = StiffFluxMat[i][j][d].array() * exp(dt);
+                    // }
                     FluxMat[i][j] = FluxMat[i][j].array() * exp(dt);
                 }
             }

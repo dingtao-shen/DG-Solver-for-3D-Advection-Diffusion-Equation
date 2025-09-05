@@ -24,7 +24,7 @@ namespace DGSolver {
                                             alignedVec<std::shared_ptr<Element::FaceDim<3, 3>>>& Faces,
                                             std::vector<int>& comp_odr)
     {
-        dt = 0.001;
+        dt = CC.dT;
         Vi = Eigen::VectorXd::Zero(3);
         Vi << 1.0, 1.0, 1.0;
 
@@ -37,7 +37,7 @@ namespace DGSolver {
             }
             Eigen::MatrixXd IntPts = phyEquiNodes(CC.SPATIAL_DIM, CC.POLYDEG, Vertices);
             assert(IntPts.rows() == CC.SPATIAL_DIM && IntPts.cols() == CC.DOF);
-            Solution[k] = BCIC::EvalF(IntPts, 0, 0, 0);
+            Solution[k] = BCIC::EvalF(IntPts, 0.0, 0, 0);
         }
 
         cout << "Solution initialized" << endl;
@@ -47,7 +47,6 @@ namespace DGSolver {
         #pragma omp parallel for
         for(int l = 0; l < CC.N_MESH_CELL; l++){
             int CellID = comp_odr[l];
-            cout << "Cell " << CellID << endl;
 
             MatrixXd Coeff = 1.0 / dt * MassMat[CellID].array();
 
@@ -77,7 +76,6 @@ namespace DGSolver {
             }
 
             PreComputedLU[CellID] = Coeff.lu();
-            cout << "Cell " << CellID << " initialized" << endl;
         }
         cout << "DGSolver_Advection initialized" << endl;
     }

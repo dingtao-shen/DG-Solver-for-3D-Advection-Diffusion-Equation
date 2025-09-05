@@ -17,6 +17,8 @@ struct ControlConstants {
     std::string MODEL;
     int TMAX;
     double TOL;
+    double dT;
+    std::string output_path;
 
     int MESH_TYPE;
     std::string MESH_FILE;
@@ -44,6 +46,9 @@ struct ControlConstants {
 
         TMAX = config["TMAX"].as<int>();
         TOL = config["TOL"].as<double>();
+
+        dT = config["dT"].as<double>();
+        output_path = config["output_path"].as<std::string>();
 
         MESH_TYPE = config["MESH_TYPE"].as<int>();
         MESH_FILE = config["MESH_FILE"].as<std::string>();

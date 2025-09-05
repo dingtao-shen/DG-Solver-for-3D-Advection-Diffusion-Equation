@@ -508,7 +508,7 @@ namespace Element {
             return NodeDim<Dim>(cached_centroid);
         }
 
-        bool isPointInside(const TypedNodePtr& point, double tolerance = 1e-16) const {
+        bool isPointInside(const TypedNodePtr& point, double tolerance = 1e-12) const {
             if constexpr (Dim == 2) {
                 const auto& n0 = *std::static_pointer_cast<NodeDim<2>>(vertices[0]);
                 const auto& n1 = *std::static_pointer_cast<NodeDim<2>>(vertices[1]);

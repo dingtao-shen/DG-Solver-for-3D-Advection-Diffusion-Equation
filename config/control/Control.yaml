@@ -4,8 +4,11 @@ QUAD_MODE: 1
 
 MODEL: ADVECTION
 
-TMAX: 1000000
+TMAX: 1000
 TOL: 1.0e-5
+
+dT: 0.0001
+output_path: "output/3D/result/Advection_solution_t01_y05.txt"
 
 MESH_TYPE: 0
 MESH_FILE: "./config/mesh/cuboid_sparse.msh"

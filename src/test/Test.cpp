@@ -53,9 +53,9 @@ int main(int argc, char* argv[]){
     alignedVec<alignedVec<Eigen::MatrixXd>> MassFaceMat = Int.getMassFaceMat();
     alignedVec<alignedVec<Eigen::MatrixXd>> FluxMat = Int.getFluxMat();
     alignedVec<alignedVec<Eigen::VectorXd>> IntFaceMat = Int.getIntFaceMat();
-    alignedVec<alignedVec<alignedVec<Eigen::MatrixXd>>> StiffFaceMat = Int.getStiffFaceMat();
-    alignedVec<alignedVec<Eigen::MatrixXd>> DivDivMat = Int.getDivDivMat();
-    alignedVec<alignedVec<alignedVec<Eigen::MatrixXd>>> StiffFluxMat = Int.getStiffFluxMat();
+    // alignedVec<alignedVec<alignedVec<Eigen::MatrixXd>>> StiffFaceMat = Int.getStiffFaceMat();
+    // alignedVec<alignedVec<Eigen::MatrixXd>> DivDivMat = Int.getDivDivMat();
+    // alignedVec<alignedVec<alignedVec<Eigen::MatrixXd>>> StiffFluxMat = Int.getStiffFluxMat();
     
     auto solver = DGSolver::DGSolver_Advection<DIM>(MassMat, StfMat, MassFaceMat, FluxMat, Cells, Faces, comp_odr);    
 
@@ -76,7 +76,7 @@ int main(int argc, char* argv[]){
     }
 
     cout << "********** ********** **** Iteration **** ********** **********" << endl;
-    while(step <= 100){
+    while(step <= CC.TMAX){
         SolutionPrev = solver.getSolution();
         t += dt;
         Int.updateFlux(mesh, dt);
@@ -98,7 +98,7 @@ int main(int argc, char* argv[]){
     times = (double)(end - start)/CLOCKS_PER_SEC;
     cout << "Time: " << times << endl;
 
-    solver.save(Cells, "output/3D/result/Advection_solution_t01_x05.txt", 0, 0.5);
+    solver.save(Cells, CC.output_path, 1, 0.5);
     // Close the step_res file
     step_res_file.close();
 
