@@ -80,6 +80,7 @@ int main(int argc, char* argv[]){
         SolutionPrev = solver.getSolution();
         t += dt;
         Int.updateFlux(mesh, dt);
+        FluxMat = Int.getFluxMat();
         solver.solve(Faces, Cells, comp_odr, MassMat, MassFaceMat, FluxMat);
         sol_norm = 0.0;
         for(int i = 0; i < CC.N_MESH_CELL; i++){
@@ -98,7 +99,7 @@ int main(int argc, char* argv[]){
     times = (double)(end - start)/CLOCKS_PER_SEC;
     cout << "Time: " << times << endl;
 
-    solver.save(Cells, CC.output_path, 1, 0.5);
+    solver.save(Cells, CC.output_path, 0, 0.5);
     // Close the step_res file
     step_res_file.close();
 
